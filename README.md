@@ -2,7 +2,6 @@
 [![Build Status](https://travis-ci.org/eliasgranderubio/dagda.svg?branch=master)](https://travis-ci.org/eliasgranderubio/dagda)
 [![Coverage Status](https://coveralls.io/repos/github/eliasgranderubio/dagda/badge.svg?branch=master)](https://coveralls.io/github/eliasgranderubio/dagda?branch=master)
 [![Python](https://img.shields.io/badge/python-3.4%2C%203.5%2C%203.6-blue.svg)](https://github.com/eliasgranderubio/dagda)
-[![Docker Pulls](https://img.shields.io/docker/pulls/3grander/dagda.svg)](https://hub.docker.com/r/3grander/dagda/)
 [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://github.com/eliasgranderubio/dagda)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Feliasgranderubio%2Fdagda.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Feliasgranderubio%2Fdagda?ref=badge_shield)
 
@@ -12,23 +11,10 @@ In order to fulfill its mission, first the known vulnerabilities as CVEs (Common
 
 Then, when you run a static analysis of known vulnerabilities, **Dagda** retrieves information about the software installed into your docker image, such as the OS packages and the dependencies of the programming languages, and verifies for each product and its version if it is free of vulnerabilities against the previously stored information into the MongoDB. Also, **Dagda** uses [ClamAV](https://www.clamav.net/) as antivirus engine for detecting trojans, viruses, malware & other malicious threats included within the docker images/containers.
 
-**Dagda** supports multiple Linux base images:
-  * Red Hat/CentOS/Fedora
-  * Debian/Ubuntu
-  * OpenSUSE
-  * Alpine
 
-**Dagda** rests on [OWASP dependency check](https://github.com/jeremylong/DependencyCheck) + [Retire.js](https://github.com/retirejs/retire.js/) for analyzing multiple dependencies from:
-  * java
-  * python
-  * nodejs
-  * js
-  * ruby
-  * php
+**Dagda** is integrated with [Falco](https://falco.org/) for monitoring running docker containers to detect anomalous activities and includes the gathering of real time events from docker daemon.
 
-On the other hand, **Dagda** is integrated with [Falco](https://falco.org/) for monitoring running docker containers to detect anomalous activities. Also, **Dagda** includes the gathering of real time events from docker daemon.
-
-Finally, each analysis report of a docker image/container, included all static analysis and all runtime monitoring, is stored into the same MongoDB for having available the history of each docker image/container when it is needed.
+Finally, each analysis report of a docker image/container, included all static analysis and all runtime monitoring, is stored in the same MongoDB for having available the history of each docker image/container when it is needed. This install is primarily concerned with the getting Dagda running within a Kubernetes cluster.
 
    * [Requirements](#requirements)
   	 * [Installation of Docker](#installation-of-docker)
@@ -49,33 +35,16 @@ Finally, each analysis report of a docker image/container, included all static a
    * [License](#license)
 
 ## Requirements
-Before **Dagda** usage, you must have installed the next requirements:
 
-* Python 3.4.X or later
-* MongoDB 2.6 or later
-* Docker
-* Pip3
-  * PyMongo
-  * Requests
-  * Python-dateutil
-  * Joblib
-  * Docker
-  * Flask
-  * Flask-cors
-  * PyYAML
-  * Defusedxml
-  * Waitress
 
-The requirements can be installed with pip:
-```bash
-    sudo pip3 install -r requirements.txt
+### Build your docker image with the **Dagda** 
+
+Using your favourite CI or locally
+
 ```
 
-### Installation of Docker
+```
 
-You must have installed Docker for using **Dagda**. If you need instructions for Docker installation, see the [How-to install Docker](https://docs.docker.com/engine/getstarted/step_one/) page.
-
-In order to avoid having to use `sudo` when you use the `docker` command, create a Unix group called `docker` and add users to it. When the `docker` daemon starts, it makes the ownership of the Unix socket read/writable by the `docker` group.
 
 ### Installation of MongoDB
 
